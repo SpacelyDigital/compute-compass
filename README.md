@@ -65,6 +65,8 @@ Choices stay in browser local storage when permitted. Export/import files work w
 
 Optional WebMCP tools mirror the visible read/configure/full-fit-comparison actions in browsers that support them. They are not required for any feature, and they do not contact an AI provider.
 
+Browser agents you grant access to these optional tools can read your current choices, owned-hardware entries and plan. Those agents' handling of that information is outside this app. The app itself makes no network requests.
+
 ## Source and maintenance
 
 - `src/catalog.json`: hardware profiles, use cases and source references.
