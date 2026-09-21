@@ -1,0 +1,20 @@
+{
+  "app": "compute-compass",
+  "version": 1,
+  "catalog": "2026-09-20",
+  "state": {
+    "selected": ["chat", "coding", "agents", "image", "video", "music", "vision"],
+    "budget": 10000,
+    "priority": "capacity",
+    "level": "starter",
+    "precision": "efficient",
+    "concurrency": "resident",
+    "llm": 32,
+    "deployment": "personal",
+    "multiple": true,
+    "expert": false,
+    "offload": false,
+    "wait": false,
+    "owned": [{"id":"5090"},{"id":"mac-ultra256"},{"id":"macbook64"}]
+  }
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Choose AI workloads, a budget and your existing devices. Compare explainable hardware plans entirely offline.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; worker-src blob:; img-src data:; connect-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Compute Compass · Offline AI hardware advisor</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2313212d'/%3E%3Cpath d='M23 8 19 20 8 24 12 12Z' fill='%23d4f576'/%3E%3C/svg%3E">
+  <style>/* APP_STYLES */</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to planner</a>
+<header class="topbar">
+  <a href="#" class="brand" aria-label="Compute Compass home"><span class="brand-mark" aria-hidden="true">↗</span><span>Compute <b>Compass</b></span></a>
+  <nav aria-label="Main navigation"><button class="nav active" data-view="planner" aria-current="page">Your plan</button><button class="nav" data-view="library">Hardware library</button><button class="nav" data-view="method">How it works</button></nav>
+  <span class="offline-pill">Offline by design</span>
+</header>
+<main id="main">
+<section id="planner-view" class="view">
+  <div class="page-heading"><div><p class="eyebrow">AI HARDWARE, EXPLAINED</p><h1>Start with what you want to do.</h1><p class="lede">Choose your work. Set a limit. See what fits, what doesn’t, and why.</p></div><div class="plan-actions"><button id="export-plan" class="button secondary">Save this plan</button><button id="save-setup" class="text-button">Save choices</button><button id="load-setup" class="text-button">Load choices</button><input type="file" id="setup-file" accept="application/json,.json" hidden></div></div>
+  <a class="mobile-results button" href="#recommendation">See my recommendation ↓</a>
+  <div class="planner-layout">
+  <form id="planner-form" class="controls" autocomplete="off">
+    <section class="panel"><div class="section-heading"><span class="step">01</span><h2>What do you want to do?</h2><span id="selection-count" class="small-label"></span></div>
+      <div class="preset-row" aria-label="Example workload selections"><button type="button" data-preset="creator">Creative studio</button><button type="button" data-preset="developer">Coding & agents</button><button type="button" data-preset="research">Private research</button><button type="button" data-preset="enterprise">AI service</button><button type="button" id="clear-usecases">Clear</button></div>
+      <p class="field-help">Pick as many as you need. These are common workloads, not a ranked popularity chart.</p><div id="usecase-grid"></div>
+    </section>
+    <section class="panel"><div class="section-heading"><span class="step">02</span><h2>Your new-hardware budget</h2></div>
+      <div class="budget-value"><span>$</span><input id="budget-number" type="number" min="0" max="5000000" step="100" aria-label="New hardware budget in US dollars"><span>USD</span></div>
+      <input id="budget-slider" type="range" min="0" max="1000" step="1" aria-label="New hardware budget slider">
+      <div class="range-labels"><span>Use what I own</span><span>$5 million</span></div>
+      <p class="field-help">A ceiling, not a target. Hardware estimates exclude tax, shipping and facility work.</p>
+    </section>
+    <section class="panel"><div class="section-heading"><span class="step">03</span><h2>How you want it to work</h2></div>
+      <div class="field"><label for="priority">What matters most?</label><select id="priority"><option value="capacity">Larger models & memory headroom</option><option value="balanced">A balanced setup</option><option value="speed">Throughput potential · benchmark needed</option><option value="value">Lowest sufficient cost · slow is okay</option></select></div>
+      <div class="field"><label for="level">How demanding are your projects?</label><select id="level"><option value="starter">Everyday · smaller models, short jobs</option><option value="advanced">Ambitious · larger models, detailed media</option><option value="frontier">Research-scale · very large models or training</option></select><p class="field-help">This sets planning assumptions. You can inspect every memory allowance in the results.</p></div>
+      <div class="field"><label for="concurrency">What needs to stay running?</label><select id="concurrency"><option value="queued">One heavy job at a time</option><option value="assistant">An assistant while other jobs run</option><option value="resident">Every selected model family stays loaded</option></select></div>
+      <p class="field-help">The result tells you the facility required and estimated parallel capacity. Start with a setup that fits one instance of each selected model family under your chosen residency mode.</p>
+      <details id="advanced-options"><summary>Model sizes & advanced options</summary><p class="field-help">The defaults suit smaller local models. Open this when you need larger models, original-weight precision, a team service or specialized infrastructure.</p>
+      <div class="field"><label for="deployment">What kind of operation?</label><select id="deployment"><option value="auto">Any suitable hardware</option><option value="personal">Personal / experimental setup</option><option value="service">Managed service · professional nodes</option></select><p class="field-help">Managed service restricts new language-model hardware to professional multi-GPU workstations or servers. Facilities are an output, never a hidden filter.</p></div>
+      <div class="field-grid"><div class="field"><label for="llm">Inference language-model size</label><select id="llm"><option value="8">Compact · about 8B parameters</option><option value="32">Capable · about 32B</option><option value="70">Large · about 70B</option><option value="120">Very large · about 120B total</option><option value="400">Research · about 400B total</option></select></div><div class="field"><label for="context">How much text at once?</label><select id="context"><option value="8192">Short · 8,000 tokens</option><option value="32768">Long · 32,000 tokens</option><option value="131072">Very long · 128,000 tokens</option></select></div></div>
+      <div class="field" id="training-field" hidden><label for="trainingSize">Training target: total parameters</label><select id="trainingSize"><option value="1">Small experiment · 1B</option><option value="7">Small language model · 7B</option><option value="32">Large experiment · 32B</option><option value="70">Very large experiment · 70B</option><option value="400">Research program · 400B</option></select><p class="field-help">Separate from inference size. Adapter tuning and full training use different memory calculations.</p></div>
+      <div class="field"><label for="precision">How should inference weights be stored?</label><select id="precision"><option value="efficient">Optimized / quantized models are fine</option><option value="native">16-bit weight target · more memory</option></select><p class="field-help">Quantization reduces weight precision, not video resolution. Published original weights are not always 16-bit. More precision does not guarantee a visibly better result.</p></div>
+      <div class="field"><label for="video">Video delivery target</label><select id="video"><option value="720">720p</option><option value="1080">1080p</option><option value="2160">4K, including upscaling</option></select></div>
+      <label class="check-line"><input id="multiple" type="checkbox"> Add machines or worker fleets when useful · up to 128 nodes</label>
+      <label class="check-line"><input id="expert" type="checkbox"> Split one model across GPUs / include experimental ports</label>
+      <label class="check-line"><input id="offload" type="checkbox"> Consider slower CPU/RAM offload where supported</label>
+      <label class="check-line"><input id="wait" type="checkbox"> Consider preorders and out-of-stock hardware</label>
+      <p class="field-help">Leave experimental ports and distributed setups off for the more straightforward software path. Exact model support still needs checking.</p></details>
+    </section>
+    <section class="panel"><div class="section-heading"><span class="step">04</span><h2>What you already own</h2></div><p class="field-help">Existing devices cost $0 in the plan. Their memory stays separate.</p>
+      <label for="owned-picker" class="sr-only">Existing hardware model</label><div class="add-device"><select id="owned-picker"></select><button id="add-device" type="button" class="button secondary">Add</button></div>
+      <div id="owned-list"></div><button id="example-stack" type="button" class="text-button">Try an example: 5090 + Ultra + MacBook</button>
+    </section>
+  </form>
+  <aside id="recommendation" class="results" aria-label="Recommended hardware plan" tabindex="-1"><div id="compute-status" class="compute-status" role="status"></div><div id="result-summary" aria-live="polite"></div><div id="result-body"></div></aside>
+  </div>
+</section>
+<section id="library-view" class="view" hidden><div class="page-heading"><div><p class="eyebrow">THE OFFLINE CATALOG</p><h1>From the desk to the data center.</h1><p class="lede">Representative hardware families, with sources and explicit limits. Not every retail configuration.</p></div></div><div class="library-controls"><label for="library-filter">Hardware class</label><select id="library-filter"><option value="all">All hardware</option><option value="consumer">Consumer desktops</option><option value="apple">Apple unified memory</option><option value="mini">Compact AI systems</option><option value="workstation">Professional workstations</option><option value="server">Servers</option><option value="rack">Rack-scale systems</option></select></div><div id="hardware-library"></div></section>
+<section id="method-view" class="view" hidden><div class="page-heading"><div><p class="eyebrow">NO CHATBOT REQUIRED</p><h1>You should be able to question the answer.</h1><p class="lede">Every result comes from bundled data and visible rules. No account, API key or model subscription.</p></div></div><div id="method-content"></div></section>
+</main>
+<footer><span>Compute Compass <span id="version"></span></span><span id="catalog-date"></span><span>No analytics. No background requests.</span></footer>
+<div id="notice" role="status" class="notice" hidden></div>
+<dialog id="export-dialog" aria-labelledby="export-title"><div class="export-heading"><h2 id="export-title">Save your plan</h2><button id="close-export" class="button secondary" type="button">Close</button></div><p class="field-help">Copy the text or download a file. If your embedded browser blocks downloads, use Copy or open the app in a standard browser.</p><textarea id="export-text" aria-label="Exported report or choices" readonly spellcheck="false"></textarea><div class="plan-actions"><button id="copy-export" class="button" type="button">Copy text</button><button id="download-export" class="button secondary" type="button">Download file</button></div><p id="export-feedback" class="field-help" role="status"></p></dialog>
+<noscript><p>This app needs JavaScript enabled in your browser. It does not need an internet connection.</p></noscript>
+<script>/* APP_DATA */</script><script id="engine-source">/* APP_ENGINE */</script><script>/* APP_UI */</script>
+</body></html>

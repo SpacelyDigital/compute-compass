@@ -1,0 +1,22 @@
+{
+  "app": "compute-compass",
+  "version": 1,
+  "catalog": "2026-09-20",
+  "state": {
+    "selected": ["chat", "train", "video"],
+    "budget": 5000000,
+    "priority": "balanced",
+    "level": "frontier",
+    "precision": "native",
+    "concurrency": "resident",
+    "llm": 120,
+    "trainingSize": 400,
+    "context": 131072,
+    "deployment": "service",
+    "multiple": true,
+    "expert": true,
+    "offload": false,
+    "wait": false,
+    "owned": []
+  }
+}
