@@ -4,7 +4,7 @@ An offline AI hardware planner for personal computers, hybrid setups, worker fle
 
 ## Open it
 
-Download the [standalone app](https://github.com/BureauObscura/compute-compass/raw/refs/heads/main/Compute%20Compass.html), or the [complete bundle](https://github.com/BureauObscura/compute-compass/raw/refs/heads/main/Compute%20Compass%20Bundle.zip) with source and documentation. Save the HTML file and open it locally; GitHub's file viewer does not run the app.
+Download the [standalone app](https://github.com/SpacelyDigital/compute-compass/raw/refs/heads/main/Compute%20Compass.html), or the [complete bundle](https://github.com/SpacelyDigital/compute-compass/raw/refs/heads/main/Compute%20Compass%20Bundle.zip) with source and documentation. Save the HTML file and open it locally; GitHub's file viewer does not run the app.
 
 Double-click **Compute Compass.html** and open it in a current desktop browser such as Chrome, Brave, Edge, Firefox or Safari. Keep or copy this one file wherever you want. No account, installation, AI model, API key or internet connection is required to calculate a plan.
 
